@@ -8,7 +8,23 @@ class Author(Base):
     __tablename__ = "authors"
     id = Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     full_name = Column(String, index=True)
-    books = relationship("Book", back_populates="author")
+    books = relationship("Book", back_populates="author", cascade="all, delete-orphan")
+
+    def get_info(self):
+        return {
+            'id': self.id,
+            'full_name': self.full_name,
+            'books': self.get_books()
+        }
+
+    def get_books(self):
+        books = []
+        for book in list(self.books):
+            books.append({
+                'id': book.id,
+                'title': book.title
+            })
+        return books
 
 
 class Book(Base):

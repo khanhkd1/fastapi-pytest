@@ -20,8 +20,8 @@ from app import author, book
 
 def start_application():
     app = FastAPI()
-    app.include_router(author.router)
-    app.include_router(book.router)
+    app.include_router(author.router, tags=['Authors'], prefix='/api/authors')
+    app.include_router(book.router, tags=['Books'], prefix='/api/books')
     return app
 
 
