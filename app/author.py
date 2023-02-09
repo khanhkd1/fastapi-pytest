@@ -66,6 +66,8 @@ def delete_author(authorId: str, db: Session = Depends(get_db)):
     if not author:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'No author with this id: {id} found')
+
     author_query.delete(synchronize_session=False)
+    db.query(models.Book).filter(models.Book.author_id == authorId).delete()
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

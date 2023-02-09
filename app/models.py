@@ -8,7 +8,7 @@ class Author(Base):
     __tablename__ = "authors"
     id = Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     full_name = Column(String, index=True)
-    books = relationship("Book", back_populates="author", cascade="all, delete-orphan")
+    books = relationship("Book", back_populates="author")
 
     def get_info(self):
         return {

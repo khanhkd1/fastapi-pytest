@@ -45,7 +45,7 @@ def get_book(bookId: str, db: Session = Depends(get_db)):
 
 # [...] edit record
 @router.patch('/{bookId}')
-def update_book(bookId: str, payload: schemas.BookBaseSchema, db: Session = Depends(get_db)):
+def update_book(bookId: str, payload: schemas.BookCreateSchema, db: Session = Depends(get_db)):
     book_query = db.query(models.Book).filter(models.Book.id == bookId)
     db_book = book_query.first()
 
