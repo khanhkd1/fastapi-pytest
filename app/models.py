@@ -33,3 +33,10 @@ class Book(Base):
     title = Column(String, index=True)
     author_id = Column(GUID, ForeignKey("authors.id"))
     author = relationship("Author", back_populates="books")
+
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
+    username = Column(String(32), unique=True, nullable=False)
+    password = Column(String(64), nullable=False)
